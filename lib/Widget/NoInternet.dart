@@ -34,7 +34,7 @@ class NoInternet extends StatelessWidget {
                 child: Text(
                   "No Internet Connected!",
                   style: TextStyle(
-                      color: Color(COLOR_TEXT_SECONDARY),
+                      color: Color(COLOR_TEXT_PRIMARY),
                       fontSize: 25.0,
                       fontWeight: FontWeight.bold),
                 ),

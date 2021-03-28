@@ -35,7 +35,7 @@ class _permissionDeniedState extends State<permissionDenied> {
       ),
       home: Scaffold(
         body: Container(
-          color: Colors.white,
+          color: Color(COLOR_BACKGROUND),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

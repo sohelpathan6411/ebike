@@ -92,6 +92,8 @@ class _home_pageState extends State<home_page> {
       ),
 
       drawer: Drawer(
+          child: Container(
+        color: Color(COLOR_BACKGROUND),
         child: ListView(
           children: <Widget>[
             InkWell(
@@ -118,8 +120,9 @@ class _home_pageState extends State<home_page> {
                     placeholder: (context, url) => Center(
                       child: new CircularProgressIndicator(
                         strokeWidth: 1,
-                        backgroundColor: Colors.black,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        backgroundColor: Color(COLOR_BACKGROUND),
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Color(COLOR_PRIMARY)),
                       ),
                     ),
                     errorWidget: (context, url, error) => new Icon(Icons.error),
@@ -133,12 +136,10 @@ class _home_pageState extends State<home_page> {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                leading:
-                    Icon(Icons.home_outlined, color: Color(COLOR_TEXT_PRIMARY)),
+                leading: Icon(Icons.home_outlined, color: Color(COLOR_PRIMARY)),
                 title: Text(
                   'Home',
-                  style: TextStyle(
-                      fontSize: 17.0, color: Color(COLOR_TEXT_PRIMARY)),
+                  style: TextStyle(fontSize: 17.0, color: Color(COLOR_PRIMARY)),
                 ),
               ),
             ),
@@ -149,12 +150,11 @@ class _home_pageState extends State<home_page> {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                leading: Icon(Icons.category_outlined,
-                    color: Color(COLOR_TEXT_PRIMARY)),
+                leading:
+                    Icon(Icons.category_outlined, color: Color(COLOR_PRIMARY)),
                 title: Text(
                   'Search By Category',
-                  style: TextStyle(
-                      fontSize: 17.0, color: Color(COLOR_TEXT_PRIMARY)),
+                  style: TextStyle(fontSize: 17.0, color: Color(COLOR_PRIMARY)),
                 ),
               ),
             ),
@@ -166,11 +166,10 @@ class _home_pageState extends State<home_page> {
                   Navigator.pop(context);
                 },
                 leading: Icon(Icons.location_on_outlined,
-                    color: Color(COLOR_TEXT_PRIMARY)),
+                    color: Color(COLOR_PRIMARY)),
                 title: Text(
                   'Search By Location',
-                  style: TextStyle(
-                      fontSize: 17.0, color: Color(COLOR_TEXT_PRIMARY)),
+                  style: TextStyle(fontSize: 17.0, color: Color(COLOR_PRIMARY)),
                 ),
               ),
             ),
@@ -181,12 +180,11 @@ class _home_pageState extends State<home_page> {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                leading: Icon(Icons.share_outlined,
-                    color: Color(COLOR_TEXT_PRIMARY)),
+                leading:
+                    Icon(Icons.share_outlined, color: Color(COLOR_PRIMARY)),
                 title: Text(
                   'Share App',
-                  style: TextStyle(
-                      fontSize: 17.0, color: Color(COLOR_TEXT_PRIMARY)),
+                  style: TextStyle(fontSize: 17.0, color: Color(COLOR_PRIMARY)),
                 ),
               ),
             ),
@@ -197,12 +195,11 @@ class _home_pageState extends State<home_page> {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                leading: Icon(Icons.settings_outlined,
-                    color: Color(COLOR_TEXT_PRIMARY)),
+                leading:
+                    Icon(Icons.settings_outlined, color: Color(COLOR_PRIMARY)),
                 title: Text(
                   'Settings',
-                  style: TextStyle(
-                      fontSize: 17.0, color: Color(COLOR_TEXT_PRIMARY)),
+                  style: TextStyle(fontSize: 17.0, color: Color(COLOR_PRIMARY)),
                 ),
               ),
             ),
@@ -214,11 +211,10 @@ class _home_pageState extends State<home_page> {
                   Navigator.pop(context);
                 },
                 leading: Icon(Icons.privacy_tip_outlined,
-                    color: Color(COLOR_TEXT_PRIMARY)),
+                    color: Color(COLOR_PRIMARY)),
                 title: Text(
                   'Privacy Policy',
-                  style: TextStyle(
-                      fontSize: 17.0, color: Color(COLOR_TEXT_PRIMARY)),
+                  style: TextStyle(fontSize: 17.0, color: Color(COLOR_PRIMARY)),
                 ),
               ),
             ),
@@ -228,12 +224,11 @@ class _home_pageState extends State<home_page> {
                 pushReplacement(context, LoginPage());
               },
               child: ListTile(
-                leading: Icon(Icons.power_settings_new,
-                    color: Color(COLOR_TEXT_PRIMARY)),
+                leading:
+                    Icon(Icons.power_settings_new, color: Color(COLOR_PRIMARY)),
                 title: Text(
                   'Log Out',
-                  style: TextStyle(
-                      fontSize: 17.0, color: Color(COLOR_TEXT_PRIMARY)),
+                  style: TextStyle(fontSize: 17.0, color: Color(COLOR_PRIMARY)),
                 ),
               ),
             ),
@@ -243,77 +238,84 @@ class _home_pageState extends State<home_page> {
             ),
           ],
         ),
-      ),
+      )),
       //view as per index or tab selected
       body: _isinternet == true
           ? _isloaded == true
-              ? Column(
-                  children: [
-                    CarouselSlider(
-                      options: CarouselOptions(
-                        aspectRatio: 16 / 9,
-                        viewportFraction: 1,
-                        initialPage: 0,
-                        enableInfiniteScroll: true,
-                        reverse: false,
-                        autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 2),
-                        autoPlayAnimationDuration: Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeCenterPage: true,
-                        scrollDirection: Axis.horizontal,
-                      ),
-                      items: imgList
-                          .map((item) => Container(
-                                child: CachedNetworkImage(
-                                  imageUrl: item,
-                                  placeholder: (context, url) => Center(
-                                    child: new CircularProgressIndicator(
-                                      strokeWidth: 1,
-                                      backgroundColor: Colors.black,
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          Colors.white),
+              ? Container(
+                  color: Color(COLOR_BACKGROUND),
+                  child: Column(
+                    children: [
+                      CarouselSlider(
+                        options: CarouselOptions(
+                          aspectRatio: 16 / 9,
+                          viewportFraction: 1,
+                          initialPage: 0,
+                          enableInfiniteScroll: true,
+                          reverse: false,
+                          autoPlay: true,
+                          autoPlayInterval: Duration(seconds: 2),
+                          autoPlayAnimationDuration:
+                              Duration(milliseconds: 800),
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          enlargeCenterPage: true,
+                          scrollDirection: Axis.horizontal,
+                        ),
+                        items: imgList
+                            .map((item) => Container(
+                                  child: CachedNetworkImage(
+                                    imageUrl: item,
+                                    placeholder: (context, url) => Center(
+                                      child: new CircularProgressIndicator(
+                                        strokeWidth: 1,
+                                        backgroundColor:
+                                            Color(COLOR_BACKGROUND),
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Color(COLOR_PRIMARY)),
+                                      ),
                                     ),
+                                    errorWidget: (context, url, error) =>
+                                        new Icon(Icons.error),
                                   ),
-                                  errorWidget: (context, url, error) =>
-                                      new Icon(Icons.error),
-                                ),
-                              ))
-                          .toList(),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'E-Bikes',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                        ],
+                                ))
+                            .toList(),
                       ),
-                    ),
-                    Expanded(
-                      child: BikesList(
-                        bikesOBJ: ap.listModel,
+                      SizedBox(
+                        height: 10,
                       ),
-                    )
-                  ],
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'E-Bikes',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 15),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: BikesList(
+                          bikesOBJ: ap.listModel,
+                        ),
+                      )
+                    ],
+                  ),
                 )
               : Container(
-                  color: Colors.transparent,
+                  color: Color(COLOR_BACKGROUND),
                   child: Center(
                     child: new CircularProgressIndicator(
                       strokeWidth: 1,
-                      backgroundColor: Colors.black,
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      backgroundColor: Color(COLOR_BACKGROUND),
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(Color(COLOR_PRIMARY)),
                     ),
                   ),
                 )

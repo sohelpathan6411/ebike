@@ -45,23 +45,20 @@ class _BikesListState extends State<BikesList> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => ProductDetail(
-                                product: widget.bikesOBJ[index],
-                              )));
+                                    product: widget.bikesOBJ[index],
+                                  )));
                     },
                     child: Container(
                       margin: EdgeInsets.only(left: 10),
-                      decoration: BoxDecoration(boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(0.5, 1.0),
-                            spreadRadius: 0.5,
-                            blurRadius: 6)
-                      ]),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Color(COLOR_BACKGROUND),
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
+                            border: Border.all(
+                              color: Color(COLOR_PRIMARY),
+                            ),
                           ),
                           child: Container(
                             width: screenWidth / 2,
@@ -69,30 +66,36 @@ class _BikesListState extends State<BikesList> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Center(
-                                  child:  ClipRRect(
+                                  child: ClipRRect(
                                     borderRadius: BorderRadius.circular(16),
                                     child: CachedNetworkImage(
                                       height: screenWidth / 2,
-                                      imageUrl: widget.bikesOBJ[index].image_link,
+                                      fit: BoxFit.fill,
+                                      imageUrl:
+                                          widget.bikesOBJ[index].image_link,
                                       placeholder: (context, url) => Center(
                                         child: new CircularProgressIndicator(
                                           strokeWidth: 1,
-                                          backgroundColor: Colors.black,
-                                          valueColor: AlwaysStoppedAnimation<Color>(
-                                              Colors.white),
+                                          backgroundColor:
+                                              Color(COLOR_BACKGROUND),
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            Color(COLOR_PRIMARY),
+                                          ),
                                         ),
                                       ),
                                       errorWidget: (context, url, error) =>
-                                      new Icon(Icons.error),
+                                          new Icon(Icons.error),
                                     ),
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                  const EdgeInsets.only(left: 6.0, top: 8.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 6.0, top: 8.0),
                                   child: Text(
                                     widget.bikesOBJ[index].title,
                                     style: TextStyle(
+                                        color: Color(COLOR_TEXT_PRIMARY),
                                         fontWeight: FontWeight.bold,
                                         fontFamily: 'Plaster'),
                                   ),
@@ -104,10 +107,16 @@ class _BikesListState extends State<BikesList> {
                                       Text(
                                         'Base Fare: ',
                                         style: TextStyle(
+                                            color: Color(COLOR_TEXT_PRIMARY),
                                             fontWeight: FontWeight.bold,
                                             fontFamily: 'Plaster'),
                                       ),
-                                      Text('\$' + widget.bikesOBJ[index].base_fare),
+                                      Text(
+                                        '\$' + widget.bikesOBJ[index].base_fare,
+                                        style: TextStyle(
+                                          color: Color(COLOR_TEXT_PRIMARY),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -118,10 +127,17 @@ class _BikesListState extends State<BikesList> {
                                       Text(
                                         'Charges: ',
                                         style: TextStyle(
+                                            color: Color(COLOR_TEXT_PRIMARY),
                                             fontWeight: FontWeight.bold,
                                             fontFamily: 'Plaster'),
                                       ),
-                                      Text('\$' + widget.bikesOBJ[index].cost_per_minute+ '/min'),
+                                      Text('\$' +
+                                          widget
+                                              .bikesOBJ[index].cost_per_minute +
+                                          '/min',
+                                        style: TextStyle(
+                                          color: Color(COLOR_TEXT_PRIMARY),
+                                        ),  ),
                                     ],
                                   ),
                                 ),

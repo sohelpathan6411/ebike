@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
         children: <Widget>[
           Text(
             title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            style: TextStyle(color: Color(COLOR_TEXT_PRIMARY), fontWeight: FontWeight.bold, fontSize: 15),
           ),
           SizedBox(
             height: 10,
@@ -64,20 +64,13 @@ class _LoginPageState extends State<LoginPage> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(5)),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                  color: Colors.grey.shade200,
-                  offset: Offset(2, 4),
-                  blurRadius: 5,
-                  spreadRadius: 2)
-            ],
             gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
                 colors: [Color(COLOR_ACCENT), Color(COLOR_PRIMARY)])),
         child: Text(
           'Login',
-          style: TextStyle(fontSize: 20, color: Colors.white),
+          style: TextStyle(color: Color(COLOR_TEXT_PRIMARY), fontSize: 20),
         ),
       ),
     );
@@ -97,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             Text(
               'Don\'t have an account ?',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+              style: TextStyle(color: Color(COLOR_TEXT_PRIMARY), fontSize: 13, fontWeight: FontWeight.w600),
             ),
             SizedBox(
               width: 10,
@@ -134,6 +127,7 @@ class _LoginPageState extends State<LoginPage> {
         FocusScope.of(context).requestFocus(new FocusNode());
       },
       child: Container(
+        color: Color(COLOR_BACKGROUND),
         height: height,
         child: Stack(
           children: <Widget>[
@@ -158,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                       padding: EdgeInsets.symmetric(vertical: 10),
                       alignment: Alignment.centerRight,
                       child: Text('Forgot Password ?',
-                          style: TextStyle(
+                          style: TextStyle(color: Color(COLOR_TEXT_PRIMARY),
                               fontSize: 14, fontWeight: FontWeight.w500)),
                     ),
                     _createAccountLabel(),

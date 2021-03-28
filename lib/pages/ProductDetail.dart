@@ -28,7 +28,6 @@ class _ProductDetailState extends State<ProductDetail> {
   double latitudePick = 0.0;
   double longitudePick = 0.0;
 
-
   _getCurrentLocation() {
     geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
@@ -38,9 +37,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
         latitudePick = position.latitude;
         longitudePick = position.longitude;
-
       });
-
     }).catchError((e) {
       print(e);
     });
@@ -48,7 +45,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
   void _Rationale() async {
     PermissionStatus permission =
-    await LocationPermissions().checkPermissionStatus();
+        await LocationPermissions().checkPermissionStatus();
     print("locper" + permission.toString());
     if (permission == PermissionStatus.granted) {
       print("locper" + "1");
@@ -67,63 +64,61 @@ class _ProductDetailState extends State<ProductDetail> {
           String btnCancel = "Cancel";
           return Platform.isIOS
               ? new CupertinoAlertDialog(
-            title: Text(title),
-            content: Text(message),
-            actions: <Widget>[
-              FlatButton(
-                child: Text(btnCancel),
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true)
-                      .pop("Discard");
-                  pushReplacement(context, permissionDenied());
-                },
-              ),
-              FlatButton(
-                child: Text(btnAllow),
-                onPressed: () async {
-
-                  PermissionStatus permission =
-                  await LocationPermissions().requestPermissions();
-                  if (permission == PermissionStatus.granted) {
-                    Navigator.of(context, rootNavigator: true)
-                        .pop("Discard");
-                    _getCurrentLocation();
-                  } else {
-                    pushReplacement(context, permissionDenied());
-                  }
-                },
-              ),
-            ],
-          )
+                  title: Text(title),
+                  content: Text(message),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text(btnCancel),
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true)
+                            .pop("Discard");
+                        pushReplacement(context, permissionDenied());
+                      },
+                    ),
+                    FlatButton(
+                      child: Text(btnAllow),
+                      onPressed: () async {
+                        PermissionStatus permission =
+                            await LocationPermissions().requestPermissions();
+                        if (permission == PermissionStatus.granted) {
+                          Navigator.of(context, rootNavigator: true)
+                              .pop("Discard");
+                          _getCurrentLocation();
+                        } else {
+                          pushReplacement(context, permissionDenied());
+                        }
+                      },
+                    ),
+                  ],
+                )
               : new AlertDialog(
-            title: Text(title),
-            content: Text(message),
-            actions: <Widget>[
-              FlatButton(
-                child: Text(btnCancel),
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true)
-                      .pop("Discard");
-                  pushReplacement(context, permissionDenied());
-                },
-              ),
-              FlatButton(
-                child: Text(btnAllow),
-                onPressed: () async {
-
-                  PermissionStatus permission =
-                  await LocationPermissions().requestPermissions();
-                  if (permission == PermissionStatus.granted) {
-                    Navigator.of(context, rootNavigator: true)
-                        .pop("Discard");
-                    _getCurrentLocation();
-                  } else {
-                    pushReplacement(context, permissionDenied());
-                  }
-                },
-              ),
-            ],
-          );
+                  title: Text(title),
+                  content: Text(message),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text(btnCancel),
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true)
+                            .pop("Discard");
+                        pushReplacement(context, permissionDenied());
+                      },
+                    ),
+                    FlatButton(
+                      child: Text(btnAllow),
+                      onPressed: () async {
+                        PermissionStatus permission =
+                            await LocationPermissions().requestPermissions();
+                        if (permission == PermissionStatus.granted) {
+                          Navigator.of(context, rootNavigator: true)
+                              .pop("Discard");
+                          _getCurrentLocation();
+                        } else {
+                          pushReplacement(context, permissionDenied());
+                        }
+                      },
+                    ),
+                  ],
+                );
         },
       );
     }
@@ -136,8 +131,6 @@ class _ProductDetailState extends State<ProductDetail> {
     _Rationale();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -146,80 +139,96 @@ class _ProductDetailState extends State<ProductDetail> {
 
     return Scaffold(
       appBar: buildAppBar(),
-      body: ListView(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: CachedNetworkImage(
-              imageUrl: widget.product.image_link,
-              placeholder: (context, url) => Center(
-                child: new CircularProgressIndicator(
-                  strokeWidth: 1,
-                  backgroundColor: Colors.black,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+      body: Container(
+        color: Color(COLOR_BACKGROUND),
+        child: ListView(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(0),
+              child: CachedNetworkImage(
+                imageUrl: widget.product.image_link,
+                placeholder: (context, url) => Center(
+                  child: new CircularProgressIndicator(
+                    strokeWidth: 1,
+                    backgroundColor: Color(COLOR_BACKGROUND),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Color(COLOR_PRIMARY),
+                    ),
+                  ),
                 ),
+                errorWidget: (context, url, error) => new Icon(Icons.error),
               ),
-              errorWidget: (context, url, error) => new Icon(Icons.error),
             ),
-          ),
-          // provides vertical space of 10 pxl
-          SizedBox(height: 10),
+            // provides vertical space of 10 pxl
+            SizedBox(height: 10),
 
-          // container for the price & detail contents of the product
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 10),
-                Text(widget.product.title,
-                    style:
-                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Base Fare: \$${widget.product.base_fare}",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Charges: \$${widget.product.cost_per_minute} /min",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Text(widget.product.description),
-                SizedBox(height: 30),
-                Text(
-                    '* on click rent now, list of nearest bikes can be found!'),
-                SizedBox(height: 20),
-                BookBikeButton(),
-                SizedBox(height: 30),
-                Text(
-                    '* User can track bikes live location from nearest centre to users current location or vice versa!'),
-                SizedBox(height: 20),
-                TrackBikeButton(),
-                SizedBox(height: 30),
-                Text(
-                    '* Once bike reached to user or vice versa, on QR Scanning we will verify it on server'),
-                SizedBox(height: 20),
-                ScanQRCodeButton(),
-                SizedBox(height: 30),
-                Text(
-                    '* Once ride started, we will take start time\n* will fetch current cost after each 1 minute\n* Once user end ride, we will calculate time at server'),
-                SizedBox(height: 20),
-                NaviGateToDestination(),
-                SizedBox(height: 50),
-              ],
+            // container for the price & detail contents of the product
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 10),
+                  Text(widget.product.title,
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Color(COLOR_TEXT_PRIMARY))),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Base Fare: \$${widget.product.base_fare}",
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Color(COLOR_TEXT_PRIMARY))),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Charges: \$${widget.product.cost_per_minute} /min",
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Color(COLOR_TEXT_PRIMARY))),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Text(widget.product.description,
+                      style: TextStyle(color: Color(COLOR_TEXT_PRIMARY))),
+                  SizedBox(height: 30),
+                  Text(
+                      '* on click rent now, list of nearest bikes can be found!',
+                      style: TextStyle(color: Color(COLOR_TEXT_PRIMARY))),
+                  SizedBox(height: 20),
+                  BookBikeButton(),
+                  SizedBox(height: 30),
+                  Text(
+                      '* User can track bikes live location from nearest centre to users current location or vice versa!',
+                      style: TextStyle(color: Color(COLOR_TEXT_PRIMARY))),
+                  SizedBox(height: 20),
+                  TrackBikeButton(),
+                  SizedBox(height: 30),
+                  Text(
+                      '* Once bike reached to user or vice versa, on QR Scanning we will verify it on server',
+                      style: TextStyle(color: Color(COLOR_TEXT_PRIMARY))),
+                  SizedBox(height: 20),
+                  ScanQRCodeButton(),
+                  SizedBox(height: 30),
+                  Text(
+                      '* Once ride started, we will take start time\n* will fetch current cost after each 1 minute\n* Once user end ride, we will calculate time at server',
+                      style: TextStyle(color: Color(COLOR_TEXT_PRIMARY))),
+                  SizedBox(height: 20),
+                  NaviGateToDestination(),
+                  SizedBox(height: 50),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -232,21 +241,15 @@ class _ProductDetailState extends State<ProductDetail> {
         padding: EdgeInsets.symmetric(vertical: 15),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                  color: Colors.grey.shade200,
-                  offset: Offset(2, 4),
-                  blurRadius: 5,
-                  spreadRadius: 2)
-            ],
-            gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [Color(COLOR_ACCENT), Color(COLOR_PRIMARY)])),
+          color: Color(COLOR_BACKGROUND),
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+          border: Border.all(
+            color: Color(COLOR_PRIMARY),
+          ),
+        ),
         child: Text(
           "Rent Now",
-          style: TextStyle(fontSize: 20, color: Colors.white),
+          style: TextStyle(fontSize: 20, color: Color(COLOR_TEXT_PRIMARY)),
         ),
       ),
     );
@@ -267,21 +270,15 @@ class _ProductDetailState extends State<ProductDetail> {
         padding: EdgeInsets.symmetric(vertical: 15),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                  color: Colors.grey.shade200,
-                  offset: Offset(2, 4),
-                  blurRadius: 5,
-                  spreadRadius: 2)
-            ],
-            gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [Color(COLOR_ACCENT), Color(COLOR_PRIMARY)])),
+          color: Color(COLOR_BACKGROUND),
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+          border: Border.all(
+            color: Color(COLOR_PRIMARY),
+          ),
+        ),
         child: Text(
           "Track ride",
-          style: TextStyle(fontSize: 20, color: Colors.white),
+          style: TextStyle(fontSize: 20, color: Color(COLOR_TEXT_PRIMARY)),
         ),
       ),
     );
@@ -297,21 +294,15 @@ class _ProductDetailState extends State<ProductDetail> {
         padding: EdgeInsets.symmetric(vertical: 15),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                  color: Colors.grey.shade200,
-                  offset: Offset(2, 4),
-                  blurRadius: 5,
-                  spreadRadius: 2)
-            ],
-            gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [Color(COLOR_ACCENT), Color(COLOR_PRIMARY)])),
+          color: Color(COLOR_BACKGROUND),
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+          border: Border.all(
+            color: Color(COLOR_PRIMARY),
+          ),
+        ),
         child: Text(
           "Scan to unlock",
-          style: TextStyle(fontSize: 20, color: Colors.white),
+          style: TextStyle(fontSize: 20, color: Color(COLOR_TEXT_PRIMARY)),
         ),
       ),
     );
@@ -342,21 +333,15 @@ class _ProductDetailState extends State<ProductDetail> {
         padding: EdgeInsets.symmetric(vertical: 15),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                  color: Colors.grey.shade200,
-                  offset: Offset(2, 4),
-                  blurRadius: 5,
-                  spreadRadius: 2)
-            ],
-            gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [Color(COLOR_ACCENT), Color(COLOR_PRIMARY)])),
+          color: Color(COLOR_BACKGROUND),
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+          border: Border.all(
+            color: Color(COLOR_PRIMARY),
+          ),
+        ),
         child: Text(
           "NaviGate To Destination",
-          style: TextStyle(fontSize: 20, color: Colors.white),
+          style: TextStyle(fontSize: 20, color: Color(COLOR_TEXT_PRIMARY)),
         ),
       ),
     );

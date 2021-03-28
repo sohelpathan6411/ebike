@@ -49,7 +49,7 @@ class _SignUpPageState extends State<SignUpPage> {
         children: <Widget>[
           Text(
             title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            style: TextStyle(color: Color(COLOR_TEXT_PRIMARY), fontWeight: FontWeight.bold, fontSize: 15),
           ),
           SizedBox(
             height: 10,
@@ -75,13 +75,7 @@ class _SignUpPageState extends State<SignUpPage> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(5)),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                  color: Colors.grey.shade200,
-                  offset: Offset(2, 4),
-                  blurRadius: 5,
-                  spreadRadius: 2)
-            ],
+
             gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
@@ -115,6 +109,7 @@ class _SignUpPageState extends State<SignUpPage> {
           FocusScope.of(context).requestFocus(new FocusNode());
         },
         child: Container(
+          color: Color(COLOR_BACKGROUND),
           height: height,
           child: Stack(
             children: <Widget>[
